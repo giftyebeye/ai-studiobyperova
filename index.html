@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI Studio by Perova</title>
+<meta name="description" content="AI-generated video work by Perova Media.">
+<link rel="icon" href="assets/logo.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<header class="site-header">
+  <div class="wrap header-inner">
+    <a href="/" class="brand">
+      <img src="assets/logo.png" alt="AI Studio by Perova" class="brand-logo" onerror="this.style.display='none'">
+      <span class="brand-name">AI Studio <em>by Perova</em></span>
+    </a>
+    <nav class="site-nav">
+      <a href="#work">Work</a>
+      <a href="#about">About</a>
+      <a href="#contact">Contact</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+  <section class="hero">
+    <div class="wrap hero-inner">
+      <p class="hero-eyebrow">Perova Media</p>
+      <h1 id="hero-headline">AI Studio by Perova</h1>
+      <p id="hero-subheadline" class="hero-sub">AI-generated videos, built by Perova Media.</p>
+      <a href="#work" class="btn-reel">Watch the reel</a>
+    </div>
+  </section>
+
+  <section id="work" class="work">
+    <div class="wrap">
+      <h2 class="section-title">Work</h2>
+      <div id="video-grid" class="video-grid">
+        <p class="empty-state">Videos are on their way — check back soon.</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="about" class="about">
+    <div class="wrap about-inner">
+      <h2 class="section-title">About</h2>
+      <p id="about-text">AI Studio by Perova is where we showcase AI-generated video work — created using tools like Google Veo and CapCut for brands and stories that move.</p>
+    </div>
+  </section>
+
+  <section id="contact" class="contact">
+    <div class="wrap contact-inner">
+      <h2 class="section-title">Get in touch</h2>
+      <div class="contact-links">
+        <a id="link-whatsapp" href="#" target="_blank" rel="noopener" class="contact-link">
+          <span class="contact-icon">WhatsApp</span>
+          <span class="contact-label">Message us</span>
+        </a>
+        <a id="link-instagram" href="#" target="_blank" rel="noopener" class="contact-link">
+          <span class="contact-icon">Instagram</span>
+          <span class="contact-label">@ai.studiobyperova</span>
+        </a>
+        <a id="link-tiktok" href="#" target="_blank" rel="noopener" class="contact-link">
+          <span class="contact-icon">TikTok</span>
+          <span class="contact-label">@ai.studiobyperova</span>
+        </a>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer class="site-footer">
+  <div class="wrap">
+    <p>&copy; <span id="year"></span> Perova Media Limited. All rights reserved.</p>
+  </div>
+</footer>
+
+<div id="video-modal" class="video-modal" hidden>
+  <div class="video-modal-backdrop" data-close></div>
+  <div class="video-modal-panel">
+    <button class="video-modal-close" data-close aria-label="Close">&times;</button>
+    <div class="video-modal-frame" id="video-modal-frame"></div>
+  </div>
+</div>
+
+<script src="js/main.js"></script>
+</body>
+</html>

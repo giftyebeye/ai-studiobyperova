@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Admin — AI Studio by Perova</title>
+<meta name="robots" content="noindex, nofollow">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css">
+<link rel="stylesheet" href="css/admin.css">
+</head>
+<body class="admin-body">
+
+<div id="login-screen" class="admin-login">
+  <form id="login-form">
+    <h1>Admin</h1>
+    <p class="hint">Enter the admin password to continue.</p>
+    <input type="password" id="password-input" placeholder="Password" autofocus required>
+    <button type="submit" class="btn-reel">Enter</button>
+    <p id="login-error" class="error" hidden>Wrong password.</p>
+  </form>
+</div>
+
+<div id="admin-screen" class="admin-screen" hidden>
+  <header class="admin-header">
+    <div class="wrap admin-header-inner">
+      <span class="brand-name">AI Studio <em>by Perova</em> — Admin</span>
+      <a href="/" class="view-site-link">View site &#8599;</a>
+    </div>
+  </header>
+
+  <main class="wrap admin-main">
+    <section class="admin-panel">
+      <h2>Hero</h2>
+      <label>Headline
+        <input type="text" id="f-headline">
+      </label>
+      <label>Subheadline
+        <input type="text" id="f-subheadline">
+      </label>
+    </section>
+
+    <section class="admin-panel">
+      <h2>About</h2>
+      <label>About text
+        <textarea id="f-about" rows="4"></textarea>
+      </label>
+    </section>
+
+    <section class="admin-panel">
+      <h2>Contact</h2>
+      <label>WhatsApp number (with country code, no +)
+        <input type="text" id="f-whatsapp-number" placeholder="2349112609745">
+      </label>
+      <label>WhatsApp default message
+        <input type="text" id="f-whatsapp-message">
+      </label>
+      <label>Instagram handle
+        <input type="text" id="f-instagram" placeholder="ai.studiobyperova">
+      </label>
+      <label>TikTok handle
+        <input type="text" id="f-tiktok" placeholder="ai.studiobyperova">
+      </label>
+    </section>
+
+    <div class="save-row">
+      <button id="save-settings" class="btn-reel">Save page changes</button>
+      <span id="save-status" class="save-status"></span>
+    </div>
+
+    <section class="admin-panel">
+      <h2>Add a video</h2>
+      <label>Title
+        <input type="text" id="new-title" placeholder="Video title">
+      </label>
+      <label>YouTube link (unlisted is fine)
+        <input type="text" id="new-youtube" placeholder="https://youtu.be/...">
+      </label>
+      <label>Cover photo
+        <input type="file" id="new-cover" accept="image/*">
+      </label>
+      <img id="new-cover-preview" class="cover-preview" hidden>
+      <button id="add-video-btn" class="btn-reel">Add video</button>
+      <span id="add-status" class="save-status"></span>
+    </section>
+
+    <section class="admin-panel">
+      <h2>Videos</h2>
+      <div id="admin-video-list" class="admin-video-list"></div>
+    </section>
+  </main>
+</div>
+
+<script src="js/admin.js"></script>
+</body>
+</html>
