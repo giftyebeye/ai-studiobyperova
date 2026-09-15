@@ -159,33 +159,28 @@ async function deleteVideo(id) {
   const ok = await saveContent(status);
   if (ok) renderVideoList();
 }
-async function editVideo(id) {
+function editVideo(id) {
   const video = (CONTENT.videos || []).find(v => v.id === id);
   if (!video) return;
 
-  const title = prompt('Edit video title:', video.title || '');
-  if (title === null) return;
+  window.EDITING_ID = id;
 
-  const description = prompt('Edit description/caption:', video.description || '');
-  if (description === null) return;
+  document.getElementById('edit-title').value = video.title || '';
+  document.getElementById('edit-description').value = video.description || '';
+  document.getElementById('edit-youtube').value = video.youtubeId || '';
 
-  const ytInput = prompt('Edit YouTube link:', video.youtubeId || '');
-  if (ytInput === null) return;
+  const preview = document.getElementById('edit-cover-preview');
 
-  const youtubeId = extractYoutubeId(ytInput);
-  if (!youtubeId) {
-    alert('Please enter a valid YouTube link.');
-    return;
+  if (video.cover) {
+    preview.src = video.cover;
+    preview.hidden = false;
+  } else {
+    preview.hidden = true;
   }
 
-  video.title = title.trim();
-  video.description = description.trim();
-  video.youtubeId = youtubeId;
-
-  const status = document.getElementById('add-status');
-  const ok = await saveContent(status);
-
-  if (ok) renderVideoList();
+  document.getElementById('edit-cover').value = '';
+  document.getElementById('edit-status').textContent = '';
+  document.getElementById('video-editor').hidden = false;
 }
 document.getElementById('login-form').addEventListener('submit', async (e) => {
   e.preventDefault();
