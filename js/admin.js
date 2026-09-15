@@ -182,6 +182,55 @@ function editVideo(id) {
   document.getElementById('edit-status').textContent = '';
   document.getElementById('video-editor').hidden = false;
 }
+document.getElementById('edit-cover').addEventListener('change', async (e) => {
+  const file = e.target.files[0];
+  if (!file) return;
+
+  const dataUrl = await compressImage(file);
+  const preview = document.getElementById('edit-cover-preview');
+  preview.src = dataUrl;
+  preview.hidden = false;
+  preview.dataset.value = dataUrl;
+});
+
+document.getElementById('save-video-edit').addEventListener('click', async () => {
+  const video = (CONTENT.videos || []).find(v => v.id === window.EDITING_ID);
+  if (!video) return;
+
+  const title = document.getElementById('edit-title').value.trim();
+  const description = document.getElementById('edit-description').value.trim();
+  const youtubeId = extractYoutubeId(
+    document.getElementById('edit-youtube').value.trim()
+  );
+
+  if (!title || !youtubeId) {
+    document.getElementById('edit-status').textContent =
+      'Add a title and a valid YouTube link.';
+    return;
+  }
+
+  video.title = title;
+  video.description = description;
+  video.youtubeId = youtubeId;
+
+  const preview = document.getElementById('edit-cover-preview');
+  if (preview.dataset.value) {
+    video.cover = preview.dataset.value;
+  }
+
+  const status = document.getElementById('edit-status');
+  const ok = await saveContent(status);
+
+  if (ok) {
+    document.getElementById('video-editor').hidden = true;
+    preview.dataset.value = '';
+    renderVideoList();
+  }
+});
+
+document.getElementById('cancel-video-edit').addEventListener('click', () => {
+  document.getElementById('video-editor').hidden = true;
+});
 document.getElementById('login-form').addEventListener('submit', async (e) => {
   e.preventDefault();
   const pw = document.getElementById('password-input').value;
