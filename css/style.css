@@ -283,3 +283,6 @@ img { max-width: 100%; display: block; }
 .video-modal[hidden] {
   display: none !important;
 }
+.contact-icon {
+  color: #ffffff !important;
+}
