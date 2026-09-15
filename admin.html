@@ -90,6 +90,32 @@
     <section class="admin-panel">
       <h2>Videos</h2>
       <div id="admin-video-list" class="admin-video-list"></div>
+      <div id="video-editor" class="video-editor" hidden>
+  <h3>Edit Video</h3>
+
+  <label>Title
+    <input type="text" id="edit-title">
+  </label>
+
+  <label>Description / Caption
+    <textarea id="edit-description" rows="3"></textarea>
+  </label>
+
+  <label>YouTube link
+    <input type="text" id="edit-youtube">
+  </label>
+
+  <label>Cover photo
+    <input type="file" id="edit-cover" accept="image/*">
+  </label>
+
+  <img id="edit-cover-preview" class="cover-preview" hidden>
+
+  <button id="save-video-edit" class="btn-reel">Save video changes</button>
+  <button id="cancel-video-edit" type="button">Cancel</button>
+
+  <span id="edit-status" class="save-status"></span>
+</div>
     </section>
   </main>
 </div>
