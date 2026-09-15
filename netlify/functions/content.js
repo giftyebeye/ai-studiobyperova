@@ -28,7 +28,7 @@ export default async (req) => {
   }
 
   if (req.method === 'POST') {
-    const ADMIN_PASSWORD = Netlify.env.get('ADMIN_PASSWORD');
+    const ADMIN_PASSWORD = process.env.ADMIN_PASSWORD;
     let body;
     try {
       body = await req.json();
