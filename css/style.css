@@ -279,3 +279,6 @@ img { max-width: 100%; display: block; }
   .hero { padding: 88px 0 64px; }
   .site-nav { gap: 18px; }
 }
+.video-modal[hidden] {
+  display: none !important;
+}
