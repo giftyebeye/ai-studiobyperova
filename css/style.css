@@ -213,7 +213,7 @@ img { max-width: 100%; display: block; }
   display: block;
   font-family: var(--font-display);
   font-weight: 600;
-  color: var(--accent);
+  color: var(--text);
   margin-bottom: 4px;
 }
 
