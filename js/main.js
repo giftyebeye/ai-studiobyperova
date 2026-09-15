@@ -47,7 +47,7 @@ function renderContent(data) {
     ${v.description ? `<p>${escapeHtml(v.description)}</p>` : ''}
   </div>
   <div class="video-thumb" style="background-image:url('${v.cover || ''}')">
-    <span class="play-btn">${PLAY_ICON}</span>
+
   </div>
 `;
     card.addEventListener('click', () => openVideo(v.youtubeId));
