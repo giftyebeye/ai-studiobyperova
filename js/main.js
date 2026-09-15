@@ -42,11 +42,14 @@ function renderContent(data) {
     const card = document.createElement('div');
     card.className = 'video-card';
     card.innerHTML = `
-      <div class="video-thumb" style="background-image:url('${v.cover || ''}')">
-        <span class="play-btn">${PLAY_ICON}</span>
-      </div>
-      <div class="video-meta"><h3>${escapeHtml(v.title || 'Untitled')}</h3></div>
-    `;
+  <div class="video-meta">
+    <h3>${escapeHtml(v.title || 'Untitled')}</h3>
+    ${v.description ? `<p>${escapeHtml(v.description)}</p>` : ''}
+  </div>
+  <div class="video-thumb" style="background-image:url('${v.cover || ''}')">
+    <span class="play-btn">${PLAY_ICON}</span>
+  </div>
+`;
     card.addEventListener('click', () => openVideo(v.youtubeId));
     grid.appendChild(card);
   });
