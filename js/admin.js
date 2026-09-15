@@ -68,11 +68,14 @@ function renderVideoList() {
     const row = document.createElement('div');
     row.className = 'admin-video-row';
     row.innerHTML = `
-      <img src="${v.cover || ''}" alt="">
-      <span class="title">${v.title || 'Untitled'}</span>
-      <button data-id="${v.id}">Delete</button>
-    `;
-    row.querySelector('button').addEventListener('click', () => deleteVideo(v.id));
+  <img src="${v.cover || ''}" alt="">
+  <span class="title">${v.title || 'Untitled'}</span>
+  <button class="edit-btn" data-id="${v.id}">Edit</button>
+  <button class="delete-btn" data-id="${v.id}">Delete</button>
+`;
+
+row.querySelector('.edit-btn').addEventListener('click', () => editVideo(v.id));
+row.querySelector('.delete-btn').addEventListener('click', () => deleteVideo(v.id));
     list.appendChild(row);
   });
 }
@@ -156,7 +159,34 @@ async function deleteVideo(id) {
   const ok = await saveContent(status);
   if (ok) renderVideoList();
 }
+async function editVideo(id) {
+  const video = (CONTENT.videos || []).find(v => v.id === id);
+  if (!video) return;
 
+  const title = prompt('Edit video title:', video.title || '');
+  if (title === null) return;
+
+  const description = prompt('Edit description/caption:', video.description || '');
+  if (description === null) return;
+
+  const ytInput = prompt('Edit YouTube link:', video.youtubeId || '');
+  if (ytInput === null) return;
+
+  const youtubeId = extractYoutubeId(ytInput);
+  if (!youtubeId) {
+    alert('Please enter a valid YouTube link.');
+    return;
+  }
+
+  video.title = title.trim();
+  video.description = description.trim();
+  video.youtubeId = youtubeId;
+
+  const status = document.getElementById('add-status');
+  const ok = await saveContent(status);
+
+  if (ok) renderVideoList();
+}
 document.getElementById('login-form').addEventListener('submit', async (e) => {
   e.preventDefault();
   const pw = document.getElementById('password-input').value;
