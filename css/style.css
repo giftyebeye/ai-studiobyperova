@@ -243,13 +243,13 @@ img { max-width: 100%; display: block; }
 
 .video-modal-panel {
   position: relative;
-  width: min(920px, 92vw);
+  width: 100vw;
   z-index: 1;
 }
 
 .video-modal-frame {
   position: relative;
-  aspect-ratio: 16 / 9;
+  aspect-ratio: auto;
   background: #000;
   border-radius: var(--radius);
   overflow: hidden;
