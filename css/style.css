@@ -250,7 +250,7 @@ img { max-width: 100%; display: block; }
 .video-modal-frame {
   position: relative;
   aspect-ratio: auto;
-  background: #000;
+  height: 100vh;background: #000;
   border-radius: var(--radius);
   overflow: hidden;
 }
