@@ -3,17 +3,23 @@ let CONTENT = null;
 
 function extractYoutubeId(input) {
   if (!input) return '';
+
   const patterns = [
     /youtu\.be\/([A-Za-z0-9_-]{6,})/,
-    /v=([A-Za-z0-9_-]{6,})/,
-    /embed\/([A-Za-z0-9_-]{6,})/,
+    /youtube\.com\/watch\?v=([A-Za-z0-9_-]{6,})/,
+    /youtube\.com\/shorts\/([A-Za-z0-9_-]{6,})/,
+    /youtube\.com\/embed\/([A-Za-z0-9_-]{6,})/,
   ];
+
   for (const p of patterns) {
     const m = input.match(p);
     if (m) return m[1];
   }
-  // If they just pasted the raw ID
-  if (/^[A-Za-z0-9_-]{6,}$/.test(input.trim())) return input.trim();
+
+  if (/^[A-Za-z0-9_-]{6,}$/.test(input.trim())) {
+    return input.trim();
+  }
+
   return '';
 }
 
