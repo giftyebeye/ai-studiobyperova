@@ -62,8 +62,21 @@ function openVideo(youtubeId) {
   if (!youtubeId) return;
   const modal = document.getElementById('video-modal');
   const frame = document.getElementById('video-modal-frame');
-  frame.innerHTML = `<iframe src="https://www.youtube.com/embed/${youtubeId}?autoplay=1" title="Video player" allow="autoplay; encrypted-media" allowfullscreen></iframe>`;
-  modal.hidden = false;
+  frame.innerHTML = `
+  <div class="video-loading" style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;color:#fff;font-size:1rem;z-index:1;">
+    Loading video…
+  </div>
+  <iframe src="https://www.youtube.com/embed/${youtubeId}?autoplay=1" title="Video player" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+`;
+
+const iframe = frame.querySelector('iframe');
+
+iframe.addEventListener('load', () => {
+  const loading = frame.querySelector('.video-loading');
+  if (loading) loading.remove();
+});
+
+modal.hidden = false;
 }
 
 function closeVideo() {
