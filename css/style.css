@@ -288,3 +288,10 @@ img { max-width: 100%; display: block; }
 .contact-icon {
   color: #ffffff !important;
 }
+@media (max-width: 640px) {
+  .hero h1 {
+    font-size: 1.6rem;
+    line-height: 0.95;
+    white-space: nowrap;
+  }
+}
