@@ -78,7 +78,7 @@ img { max-width: 100%; display: block; }
 
 /* Hero */
 .hero {
-  padding: 35px 0 96px;
+  padding: 35px 0 55px;
   border-bottom: 1px solid var(--line);
   background: var(--bg);
     radial-gradient(circle at 15% 20%, rgba(242, 184, 75, 0.08), transparent 45%),
@@ -183,7 +183,7 @@ img { max-width: 100%; display: block; }
 }
 
 /* About */
-.about { padding: 88px 0; border-bottom: 1px solid var(--line); }
+.about { padding: 55px 0; border-bottom: 1px solid var(--line); }
 
 .about-inner { max-width: 640px; }
 
