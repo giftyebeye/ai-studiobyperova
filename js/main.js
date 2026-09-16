@@ -13,10 +13,7 @@ function whatsappLink(number, message) {
 }
 
 function renderContent(data) {
-  if (data.hero) {
-    if (data.hero.headline) document.getElementById('hero-headline').textContent = data.hero.headline;
-    if (data.hero.subheadline) document.getElementById('hero-subheadline').textContent = data.hero.subheadline;
-  }
+
   if (data.about && data.about.text) {
     document.getElementById('about-text').textContent = data.about.text;
   }
