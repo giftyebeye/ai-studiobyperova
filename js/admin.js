@@ -71,23 +71,57 @@ function renderVideoList() {
   }
   list.innerHTML = '';
   videos.forEach(v => {
-    const row = document.createElement('div');
-    row.className = 'admin-video-row';
-    row.innerHTML = `
-  <img src="${v.cover || ''}" alt="">
-  <span class="title">${v.title || 'Untitled'}</span>
-  <img src="${v.cover || ''}" alt="">
-<span class="title">${v.title || 'Untitled'}</span>
-<button class="up-btn" data-id="${v.id}">↑ Up</button>
-<button class="down-btn" data-id="${v.id}">↓ Down</button>
-<button class="edit-btn" data-id="${v.id}">Edit</button>
-<button class="delete-btn" data-id="${v.id}">Delete</button>
-`;
+  const row = document.createElement('div');
+  row.className = 'admin-video-row';
+  row.draggable = true;
+  row.dataset.id = v.id;
 
-row.querySelector('.edit-btn').addEventListener('click', () => editVideo(v.id));
-row.querySelector('.delete-btn').addEventListener('click', () => deleteVideo(v.id));
-    list.appendChild(row);
+  row.innerHTML = `
+    <span class="drag-handle" title="Drag to reorder">☰</span>
+    <img src="${v.cover || ''}" alt="">
+    <span class="title">${v.title || 'Untitled'}</span>
+    <button class="edit-btn" data-id="${v.id}">Edit</button>
+    <button class="delete-btn" data-id="${v.id}">Delete</button>
+  `;
+
+  row.querySelector('.edit-btn').addEventListener('click', () => editVideo(v.id));
+  row.querySelector('.delete-btn').addEventListener('click', () => deleteVideo(v.id));
+
+  row.addEventListener('dragstart', () => {
+    window.DRAGGING_VIDEO_ID = v.id;
+    row.classList.add('dragging');
   });
+
+  row.addEventListener('dragend', () => {
+    window.DRAGGING_VIDEO_ID = null;
+    row.classList.remove('dragging');
+  });
+
+  row.addEventListener('dragover', (e) => {
+    e.preventDefault();
+  });
+
+  row.addEventListener('drop', (e) => {
+    e.preventDefault();
+
+    const fromId = window.DRAGGING_VIDEO_ID;
+    const toId = v.id;
+
+    if (!fromId || fromId === toId) return;
+
+    const fromIndex = CONTENT.videos.findIndex(item => item.id === fromId);
+    const toIndex = CONTENT.videos.findIndex(item => item.id === toId);
+
+    if (fromIndex === -1 || toIndex === -1) return;
+
+    const [movedVideo] = CONTENT.videos.splice(fromIndex, 1);
+    CONTENT.videos.splice(toIndex, 0, movedVideo);
+
+    renderVideoList();
+  });
+
+  list.appendChild(row);
+});
 }
 
 async function saveContent(statusEl) {
