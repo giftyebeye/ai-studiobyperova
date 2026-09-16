@@ -85,7 +85,7 @@ img { max-width: 100%; display: block; }
     var(--bg);
 }
 
-.hero-inner { max-width: 720px; }
+.hero-inner { max-width: 1120px; }
 
 .hero-eyebrow {
   color: var(--accent);
