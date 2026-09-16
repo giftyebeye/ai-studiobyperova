@@ -76,8 +76,12 @@ function renderVideoList() {
     row.innerHTML = `
   <img src="${v.cover || ''}" alt="">
   <span class="title">${v.title || 'Untitled'}</span>
-  <button class="edit-btn" data-id="${v.id}">Edit</button>
-  <button class="delete-btn" data-id="${v.id}">Delete</button>
+  <img src="${v.cover || ''}" alt="">
+<span class="title">${v.title || 'Untitled'}</span>
+<button class="up-btn" data-id="${v.id}">↑ Up</button>
+<button class="down-btn" data-id="${v.id}">↓ Down</button>
+<button class="edit-btn" data-id="${v.id}">Edit</button>
+<button class="delete-btn" data-id="${v.id}">Delete</button>
 `;
 
 row.querySelector('.edit-btn').addEventListener('click', () => editVideo(v.id));
