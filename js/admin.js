@@ -87,38 +87,43 @@ function renderVideoList() {
   row.querySelector('.edit-btn').addEventListener('click', () => editVideo(v.id));
   row.querySelector('.delete-btn').addEventListener('click', () => deleteVideo(v.id));
 
-  row.addEventListener('dragstart', () => {
-    window.DRAGGING_VIDEO_ID = v.id;
-    row.classList.add('dragging');
+  const handle = row.querySelector('.drag-handle');
+
+handle.addEventListener('pointerdown', (e) => {
+  e.preventDefault();
+
+  window.DRAGGING_VIDEO_ID = v.id;
+  row.classList.add('dragging');
+
+  handle.setPointerCapture(e.pointerId);
+});
+
+handle.addEventListener('pointermove', (e) => {
+  if (window.DRAGGING_VIDEO_ID !== v.id) return;
+
+  const rows = [...list.querySelectorAll('.admin-video-row')];
+  const otherRows = rows.filter(r => r.dataset.id !== v.id);
+
+  const target = otherRows.find(otherRow => {
+    const rect = otherRow.getBoundingClientRect();
+    return e.clientY < rect.top + rect.height / 2;
   });
 
-  row.addEventListener('dragend', () => {
-    window.DRAGGING_VIDEO_ID = null;
-    row.classList.remove('dragging');
-  });
+  if (target) {
+    list.insertBefore(row, target);
+  } else {
+    list.appendChild(row);
+  }
+});
 
-  row.addEventListener('dragover', (e) => {
-    e.preventDefault();
-  });
+handle.addEventListener('pointerup', (e) => {
+  if (window.DRAGGING_VIDEO_ID !== v.id) return;
 
-  row.addEventListener('drop', (e) => {
-    e.preventDefault();
+  window.DRAGGING_VIDEO_ID = null;
+  row.classList.remove('dragging');
 
-    const fromId = window.DRAGGING_VIDEO_ID;
-    const toId = v.id;
-
-    if (!fromId || fromId === toId) return;
-
-    const fromIndex = CONTENT.videos.findIndex(item => item.id === fromId);
-    const toIndex = CONTENT.videos.findIndex(item => item.id === toId);
-
-    if (fromIndex === -1 || toIndex === -1) return;
-
-    const [movedVideo] = CONTENT.videos.splice(fromIndex, 1);
-    CONTENT.videos.splice(toIndex, 0, movedVideo);
-
-    renderVideoList();
-  });
+  handle.releasePointerCapture(e.pointerId);
+});
 
   list.appendChild(row);
 });
