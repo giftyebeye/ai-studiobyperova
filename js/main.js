@@ -88,9 +88,25 @@ function closeVideo() {
 document.querySelectorAll('[data-close]').forEach(el => el.addEventListener('click', closeVideo));
 document.addEventListener('keydown', e => { if (e.key === 'Escape') closeVideo(); });
 
+const cachedContent = localStorage.getItem('aiStudioContent');
+
+if (cachedContent) {
+  try {
+    renderContent(JSON.parse(cachedContent));
+  } catch (e) {
+    localStorage.removeItem('aiStudioContent');
+  }
+}
+
 fetch('/api/content')
   .then(r => r.json())
-  .then(renderContent)
+  .then(data => {
+    localStorage.setItem('aiStudioContent', JSON.stringify(data));
+    renderContent(data);
+  })
   .catch(() => {
-    document.getElementById('video-grid').innerHTML = '<p class="empty-state">Could not load videos right now.</p>';
+    if (!cachedContent) {
+      document.getElementById('video-grid').innerHTML =
+        '<p class="empty-state">Could not load videos right now.</p>';
+    }
   });
