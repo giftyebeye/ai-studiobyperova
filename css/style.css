@@ -185,7 +185,7 @@ img { max-width: 100%; display: block; }
 /* About */
 .about { padding: 55px 0; border-bottom: 1px solid var(--line); }
 
-.about-inner { max-width: 640px; }
+.about-inner { max-width: 1120px; }
 
 #about-text { color: var(--text-dim); font-size: 1.05rem; }
 
