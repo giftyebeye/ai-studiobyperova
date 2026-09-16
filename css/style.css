@@ -301,14 +301,22 @@ img { max-width: 100%; display: block; }
   }
 
   .hero-eyebrow {
-    margin-bottom: 8px;
+    font-size: 0.75rem;
+    margin-bottom: 6px;
   }
 
   .hero h1 {
     font-size: 1.6rem;
     line-height: 0.95;
-    margin-bottom: 12px;
+    letter-spacing: -0.03em;
+    font-weight: 800;
+    margin-bottom: 14px;
     white-space: nowrap;
+  }
+
+  .hero h1 span {
+    color: var(--accent);
+    font-weight: 800;
   }
 
   .hero-sub {
