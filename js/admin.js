@@ -65,68 +65,59 @@ function fillForm() {
 function renderVideoList() {
   const list = document.getElementById('admin-video-list');
   const videos = CONTENT.videos || [];
+
   if (!videos.length) {
     list.innerHTML = '<p style="color:var(--text-dim);font-size:0.9rem;">No videos yet.</p>';
     return;
   }
+
   list.innerHTML = '';
-  videos.forEach(v => {
-  const row = document.createElement('div');
-  row.className = 'admin-video-row';
-  row.draggable = true;
-  row.dataset.id = v.id;
 
-  row.innerHTML = `
-    <span class="drag-handle" title="Drag to reorder">☰</span>
-    <img src="${v.cover || ''}" alt="">
-    <span class="title">${v.title || 'Untitled'}</span>
-    <button class="edit-btn" data-id="${v.id}">Edit</button>
-    <button class="delete-btn" data-id="${v.id}">Delete</button>
-  `;
+  videos.forEach((v, index) => {
+    const row = document.createElement('div');
+    row.className = 'admin-video-row';
 
-  row.querySelector('.edit-btn').addEventListener('click', () => editVideo(v.id));
-  row.querySelector('.delete-btn').addEventListener('click', () => deleteVideo(v.id));
+    row.innerHTML = `
+      <span class="drag-handle">☰</span>
+      <img src="${v.cover || ''}" alt="">
+      <span class="title">${v.title || 'Untitled'}</span>
 
-  const handle = row.querySelector('.drag-handle');
+      <button class="up-btn" data-id="${v.id}" ${index === 0 ? 'disabled' : ''}>↑</button>
+      <button class="down-btn" data-id="${v.id}" ${index === videos.length - 1 ? 'disabled' : ''}>↓</button>
 
-handle.addEventListener('pointerdown', (e) => {
-  e.preventDefault();
+      <button class="edit-btn" data-id="${v.id}">Edit</button>
+      <button class="delete-btn" data-id="${v.id}">Delete</button>
+    `;
 
-  window.DRAGGING_VIDEO_ID = v.id;
-  row.classList.add('dragging');
+    row.querySelector('.up-btn').addEventListener('click', async () => {
+      if (index === 0) return;
 
-  handle.setPointerCapture(e.pointerId);
-});
+      [CONTENT.videos[index - 1], CONTENT.videos[index]] =
+        [CONTENT.videos[index], CONTENT.videos[index - 1]];
 
-handle.addEventListener('pointermove', (e) => {
-  if (window.DRAGGING_VIDEO_ID !== v.id) return;
+      const status = document.getElementById('add-status');
+      const ok = await saveContent(status);
 
-  const rows = [...list.querySelectorAll('.admin-video-row')];
-  const otherRows = rows.filter(r => r.dataset.id !== v.id);
+      if (ok) renderVideoList();
+    });
 
-  const target = otherRows.find(otherRow => {
-    const rect = otherRow.getBoundingClientRect();
-    return e.clientY < rect.top + rect.height / 2;
-  });
+    row.querySelector('.down-btn').addEventListener('click', async () => {
+      if (index === videos.length - 1) return;
 
-  if (target) {
-    list.insertBefore(row, target);
-  } else {
+      [CONTENT.videos[index], CONTENT.videos[index + 1]] =
+        [CONTENT.videos[index + 1], CONTENT.videos[index]];
+
+      const status = document.getElementById('add-status');
+      const ok = await saveContent(status);
+
+      if (ok) renderVideoList();
+    });
+
+    row.querySelector('.edit-btn').addEventListener('click', () => editVideo(v.id));
+    row.querySelector('.delete-btn').addEventListener('click', () => deleteVideo(v.id));
+
     list.appendChild(row);
-  }
-});
-
-handle.addEventListener('pointerup', (e) => {
-  if (window.DRAGGING_VIDEO_ID !== v.id) return;
-
-  window.DRAGGING_VIDEO_ID = null;
-  row.classList.remove('dragging');
-
-  handle.releasePointerCapture(e.pointerId);
-});
-
-  list.appendChild(row);
-});
+  });
 }
 
 async function saveContent(statusEl) {
