@@ -23,7 +23,10 @@ export default async (req) => {
   if (req.method === 'GET') {
     const data = (await store.get('content', { type: 'json' })) || DEFAULT_CONTENT;
     return new Response(JSON.stringify(data), {
-      headers: { 'Content-Type': 'application/json' },
+      headers: {
+  'Content-Type': 'application/json',
+  'Cache-Control': 'public, max-age=0, s-maxage=60, stale-while-revalidate=300',
+},
     });
   }
 
