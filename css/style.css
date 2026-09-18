@@ -123,7 +123,7 @@ img { max-width: 100%; display: block; }
   transition: background 0.15s, transform 0.15s;
 }
 
-.btn-reel:hover { background: #ffd27a; transform: translateY(-1px); }
+.btn-reel:hover { background: var(--accent); transform: translateY(-1px); }
 
 /* Sections */
 .section-title {
